@@ -1,7 +1,14 @@
 import os
+import pandas as pd
+
 from flask import Flask, url_for, render_template, request
 from flask import redirect
 from flask import session
+
+
+df = pd.read_csv("autotest.csv")
+df.set_index('Make', inplace=True)
+
 
 app = Flask(__name__)
 condition = []
@@ -31,6 +38,14 @@ def renderQuestion3_over_25():
 def renderQuestion3_under_25():
     return render_template('question3_under_25.html')
 
+@app.route('/question4_over_25')
+def renderQuestion4_over_25():
+    return render_template('question4_over_25.html')
+
+@app.route('/path1')
+def renderpath1():
+    return render_template('path1.html')
+
 @app.route('/welcome',methods=['GET','POST'])
 def renderWelcomeResult():
     session["name"]=request.form['name']
@@ -54,11 +69,21 @@ def renderQuestion3_over_25Result():
     session["experience"]=request.form['experience']
     return render_template('question4_over_25.html')
 
+@app.route('/question4_over_25',methods=['GET','POST'])
+def renderQuestion4_over_25Result():
+    session["drivetype"]=request.form['drivetype']
+    if session["drivetype"] == 'True':
+        return render_template('path1.html')
+    if session["drivetype"] == 'False':
+        return render_template('question5_over_25.html')
+        
 
+def path1(): 
+    if session["age1"] == 'True' and session["age2"] == 'True' and session["experience"] == 'True' and session["drivetype"] == 'True' : 
+        df2 = df[(df.Symboling >= 0) & (df.BodyStyle == "suv" ) & (df.HighwayMPG >= 30)]
+        return render_template('path1.html', df2)
 
-
-
-
+        
 if __name__=="__main__":
     
     app.run(host='0.0.0.0')

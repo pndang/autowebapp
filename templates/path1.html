@@ -10,18 +10,9 @@
     <p>I am above the age of 25: {{ session['age1'] }}</p>
     <p>I am retired: {{ session['age2'] }}</p>
     <p>I have been driving for more than 3 years: {{ session['experience'] }}</p>
+    <p>I enjoy road trips and adventurous activities: {{ session['drivetype'] }}</p>
 
-    <form action={{ url_for("renderQuestion4_over_25") }} method="POST">
-        
-     I enjoy road trips and adventurous activities:  <br>
-
-     <input type="text" name="drivetype">
-     <br>
-     
-     <input type="submit" value="Submit">
-  
-     
-    </form>
-
+    
+    
 
 {% endblock %}
