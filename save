@@ -265,3 +265,25 @@ def renderQuestion4_over_25Result():
 if __name__=="__app__":
     
     app.run(debug=True, host='0.0.0.0')
+
+
+
+
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+    <h1>Car Reccomendation Service</h1>
+
+    <p>Please Answer using True or False</p>
+    <p>I am above the age of 25: {{ session['age1'] }}</p>
+    <p>I am retired: {{ session['age2'] }}</p>
+    <p>I have been driving for more than 3 years: {{ session['experience'] }}</p>
+    <p>I enjoy road trips and adventurous activities: {{ session['drivetype'] }}</p>
+    <p>I drive often with my family: {{ session['passenger'] }}</p>
+
+    {{ df2 }}
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+    <h1>Car Reccomendation Service</h1>
+
+    <p>Please Answer using True or False</p>
+    <p>I am above the age of 25: {{ session['age1'] }}</p>
+    <p>I am retired: {{ session['age2'] }}</p>
+    <p>I have been driving for more than 3 years: {{ session['experience'] }}</p>
+    <p>I enjoy road trips and adventurous activities: {{ session['drivetype'] }}</p>
+    <p>I drive often with my family: {{ session['passenger'] }}</p>
+
+    <form action={{ url_for("renderQuestion6_over_25") }} method="POST">
+        
+     I prefer leisure drives over practical/efficient drives:  <br>
+
+     <input type="text" name="drivestyle">
+     <br>
+     
+     <input type="submit" value="Submit">
+  
+     
+    </form>
+
+
+{% endblock %}
