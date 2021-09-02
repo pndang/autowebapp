@@ -5,13 +5,11 @@ from flask import Flask, url_for, render_template, request
 from flask import redirect
 from flask import session
 
-
 df = pd.read_csv("autotest.csv")
 df.set_index('Make', inplace=True)
 
 
 app = Flask(__name__)
-condition = []
 app.secret_key='w98fw9ef8hwe98fhwef'; 
 
 @app.route('/')
@@ -72,18 +70,19 @@ def renderQuestion3_over_25Result():
 @app.route('/question4_over_25',methods=['GET','POST'])
 def renderQuestion4_over_25Result():
     session["drivetype"]=request.form['drivetype']
-    if session["drivetype"] == 'True':
-        return render_template('path1.html')
+    if session["drivetype"] == 'True' and session["age1"] == 'True' and session["age2"] == 'True' and session["experience"] == 'True': 
+        df = df[(df.Symboling >= 0) & (df.BodyStyle == "suv" ) & (df.HighwayMPG >= 30)]
+        return render_template('path1.html', df2=df)
+
     if session["drivetype"] == 'False':
         return render_template('question5_over_25.html')
-        
 
-def path1(): 
-    if session["age1"] == 'True' and session["age2"] == 'True' and session["experience"] == 'True' and session["drivetype"] == 'True' : 
-        df2 = df[(df.Symboling >= 0) & (df.BodyStyle == "suv" ) & (df.HighwayMPG >= 30)]
-        return render_template('path1.html', df2)
+# def path1(): 
+#     if session["age1"] == 'True' and session["age2"] == 'True' and session["experience"] == 'True' and session["drivetype"] == 'True' : 
+#         df2 = df[(df.Symboling >= 0) & (df.BodyStyle == "suv" ) & (df.HighwayMPG >= 30)]
+#         return render_template('path1.html', df2)
 
-        
-if __name__=="__main__":
+
+if __name__=="__app__":
     
-    app.run(host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')
