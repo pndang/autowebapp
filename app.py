@@ -71,16 +71,12 @@ def renderQuestion3_over_25Result():
 def renderQuestion4_over_25Result():
     session["drivetype"]=request.form['drivetype']
     if session["drivetype"] == 'True' and session["age1"] == 'True' and session["age2"] == 'True' and session["experience"] == 'True': 
-        df = df[(df.Symboling >= 0) & (df.BodyStyle == "suv" ) & (df.HighwayMPG >= 30)]
-        return render_template('path1.html', df2=df)
+        path1 = df[(df.Symboling >= 0) & (df.BodyStyle == "suv" ) & (df.HighwayMPG >= 30)]
+        path1 = path1.to_html()
+        return render_template('path1.html', df2=path1)
 
     if session["drivetype"] == 'False':
         return render_template('question5_over_25.html')
-
-# def path1(): 
-#     if session["age1"] == 'True' and session["age2"] == 'True' and session["experience"] == 'True' and session["drivetype"] == 'True' : 
-#         df2 = df[(df.Symboling >= 0) & (df.BodyStyle == "suv" ) & (df.HighwayMPG >= 30)]
-#         return render_template('path1.html', df2)
 
 
 if __name__=="__app__":
